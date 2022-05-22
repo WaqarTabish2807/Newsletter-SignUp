@@ -13,8 +13,8 @@ app.get("/", function (req, res) {
 
 app.post("/", function (req, res) {
 
-    const firstName = req.body.fName;
-    const SecondName = req.body.lname;
+    const firstName = req.body.fname;
+    const secondName = req.body.lname;
     const email = req.body.email;
 
     const data = {
@@ -24,7 +24,7 @@ app.post("/", function (req, res) {
                 status: "subscribed",
                 merge_fields: {
                     FNAME: firstName,
-                    LNAME: SecondName,
+                    LNAME: secondName,
                 }
             }
         ]
@@ -32,11 +32,11 @@ app.post("/", function (req, res) {
 
     const jsonData = JSON.stringify(data);
 
-    const url = "https://us14.api.mailchimp.com/3.0/lists/ef441de797";
+    const url = "https://usX.api.mailchimp.com/3.0/lists/YourListId";
 
     const options = {
         method: "POST",
-        auth: "waqs:2bcefa984acadb94afc5b6c143b9f61a-us14"
+        auth: "waqs:YourApiKey"
     }
 
     const request = https.request(url, options, function (response) {
@@ -52,7 +52,7 @@ app.post("/", function (req, res) {
         });
     });
 
-    // request.write(jsonData);
+    request.write(jsonData);
     request.end()
 });
 
